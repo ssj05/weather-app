@@ -1,6 +1,5 @@
 const apiKey = "MYJVWHRL38UKVH945KJ6N8ME9";
 
-
 function getWeather() {
   const city = document.getElementById("cityInput").value.trim();
   if (!city) return alert("Please enter a city name.");
@@ -8,13 +7,13 @@ function getWeather() {
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(city)}?unitGroup=metric&key=${apiKey}&include=current`;
 
   fetch(url)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
       }
       return response.json();
     })
-    .then(data => {
+    .then((data) => {
       const current = data.currentConditions;
 
       const output = `
@@ -29,27 +28,24 @@ function getWeather() {
 
       document.getElementById("weatherResult").innerHTML = output;
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Weather fetch failed:", error);
-      document.getElementById("weatherResult").innerHTML = "❌ Error fetching weather data.";
+      document.getElementById("weatherResult").innerHTML =
+        "❌ Error fetching weather data.";
     });
 
-    
-logCitySearch(city);
+  logCitySearch(city);
 
-function logCitySearch(cityName) {
-  fetch("log.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "city=" + encodeURIComponent(cityName)
-  })
-  .then(res => res.text())
-  .then(data => console.log("Log:", data))
-  .catch(err => console.error("Log error:", err));
+  function logCitySearch(cityName) {
+    fetch("log.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "city=" + encodeURIComponent(cityName),
+    })
+      .then((res) => res.text())
+      .then((data) => console.log("Log:", data))
+      .catch((err) => console.error("Log error:", err));
+  }
 }
-
-}
-
-
